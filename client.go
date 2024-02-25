@@ -19,7 +19,7 @@ func NewIapClient(ctx context.Context, iapId string) *http.Client {
 }
 
 // SetIapTransport replaces http.Transport in the provided http.Client with 
-// a one that will handle IAP authentication.
+// a one that will handle authentication behind IAP.
 // If iapId is empty, it returns the same clie
 func SetIapTransport(ctx context.Context, iapId string, client *http.Client) {
 	if len(iapId) > 0 {
@@ -28,5 +28,3 @@ func SetIapTransport(ctx context.Context, iapId string, client *http.Client) {
 		}
 	}
 }
-
-
