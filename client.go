@@ -1,4 +1,4 @@
-// Package proxiap provides methods and structs to handle authentication 
+// Package proxiap provides methods and structs to handle authentication
 // to resources behind Google's Identity-Aware Proxy (IAP).
 package proxiap
 
@@ -18,7 +18,7 @@ func NewIapClient(ctx context.Context, iapId string) *http.Client {
 	return nil
 }
 
-// SetIapTransport replaces http.Transport in the provided http.Client with 
+// SetIapTransport replaces http.Transport in the provided http.Client with
 // a one that will handle authentication behind IAP.
 // If iapId is empty, it returns the same clie
 func SetIapTransport(ctx context.Context, iapId string, client *http.Client) {

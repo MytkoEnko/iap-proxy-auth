@@ -5,10 +5,10 @@ import (
 	"context"
 	"net/http"
 
-	"log"
 	"golang.org/x/oauth2"
 	"google.golang.org/api/idtoken"
 	"google.golang.org/api/option"
+	"log"
 )
 
 // IapAuthTransport is a custom http.RoundTripper that adds IAP authentication

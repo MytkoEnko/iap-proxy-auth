@@ -1,9 +1,9 @@
 # IAP Auth Client Library for Go
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/yourusername/iap-auth-client)](https://goreportcard.com/report/github.com/yourusername/iap-auth-client)
+[![Go Report Card](https://goreportcard.com/badge/github.com/mytkoenko/iap-proxy-auth)](https://goreportcard.com/report/github.com/mytkoenko/iap-proxy-auth)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-This library resolves conflicts when using Identity-Aware Proxy (IAP) alongside additional layers of authentication. By default, IAP uses the `Authorization` header for its tokens (source: [googleapis/google-cloud-go](https://github.com/googleapis/google-cloud-go/blob/6cd6a73be87a261729d3b6b45f3d28be93c3fdb3/auth/httptransport/httptransport.go#L179C4-L187)), potentially causing issues with secondary authentication layers. Our solution moves IAP tokens to the `Proxy-Authorization` header, enabling seamless interaction with both IAP and additional authentication layers. Users can now set the `Authorization` header with credentials for the secondary layer.
+This library resolves conflicts when using Identity-Aware Proxy (IAP) alongside additional layers of authentication. By default, IAP uses the `Authorization` header for its tokens (source: [googleapis/google-cloud-go](https://github.com/googleapis/google-cloud-go/blob/6cd6a73be87a261729d3b6b45f3d28be93c3fdb3/auth/httptransport/httptransport.go#L179C4-L187)), potentially causing issues with secondary authentication layers that tend to use the same header. This solution moves IAP tokens to the `Proxy-Authorization` header, enabling seamless interaction with both IAP and additional authentication layers. Users can now set the `Authorization` header with credentials for the secondary layer.
 
  It provides two main functionalities:
 
@@ -26,8 +26,8 @@ package main
 
 import (
 	"context"
-
-	"github.com/mytkoenko/iap-proxy-header"
+	"fmt"
+	"net/http"
 )
 
 func main() {
@@ -35,9 +35,8 @@ func main() {
 	// Context is requird
 	ctx := context.Background()
 
-   // IAP client ID of the resource is required
-   iapID := "123456789012-abc123def456ghijklmnopqrstuvwxyz.apps.googleusercontent.com
-"
+	// IAP client ID of the resource is required
+	iapID := "123456789012-abc123def456ghijklmnopqrstuvwxyz.apps.googleusercontent.com"
 	// Create an HTTP client with proxied IAP headers.
 	client := proxiap.NewIapClient(ctx, iapID)
 
@@ -54,8 +53,7 @@ func main() {
 	// Send the request
 	resp, err := client.Do(req)
 
-   // Use your client
-...
+	// Use your client ...
 }
 ```
 
@@ -67,24 +65,20 @@ package main
 import (
 	"context"
 	"net/http"
-
-   "github.com/mytkoenko/iap-proxy-header"
 )
 
 func main() {
 	// Context is requird
 	ctx := context.Background()
 
-   // IAP client ID of the resource is required
-   iapID := "123456789012-abc123def456ghijklmnopqrstuvwxyz.apps.googleusercontent.com
-"
+	// IAP client ID of the resource is required
+	iapID := "123456789012-abc123def456ghijklmnopqrstuvwxyz.apps.googleusercontent.com"
 	// Create a new http.Client
 	client := &http.Client{}
 
-   // Update cient's transport with proxiap.SetIapTransport()
-   proxiap.SetIapTransport(ctx, iapID, *client)
+	// Update cient's transport with proxiap.SetIapTransport()
+	proxiap.SetIapTransport(ctx, iapID, *client)
 
-   // Use your client
-   ...
+	// Use your client ...
 }
 ```
