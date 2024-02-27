@@ -1,4 +1,4 @@
-module github.com/mytkoenko/iap-auth-client
+module github.com/mytkoenko/iap-proxy-auth 
 
 go 1.20
 
