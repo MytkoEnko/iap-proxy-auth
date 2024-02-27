@@ -28,6 +28,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"github.com/MytkoEnko/iap-proxy-auth"
 )
 
 func main() {
@@ -65,6 +66,7 @@ package main
 import (
 	"context"
 	"net/http"
+	"github.com/MytkoEnko/iap-proxy-auth"
 )
 
 func main() {
